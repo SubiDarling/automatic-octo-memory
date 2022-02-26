@@ -1,0 +1,35 @@
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script>
+$(function (){
+	$('#frm').submit(function(evt){
+		evt.preventDefault();
+		var pnrNo = $('#pnrNo').val();
+		alert(pnrNo);
+		$.ajax({
+			url : 'http://localhost:8181/rest-app/api/pnr?pnrNo='+pnrNo ,
+			method : 'GET' ,
+			success : function(data){
+				//alert(JSON.stringify(data));
+			//	for(let passenger of passengers)
+				//	alert(passenger.name);
+			$("#print").append("train no : " + data.trainNo);
+			$("#print").append("<br> traveldate"+data.travelDate);
+			for(let passenger of data.passengers)
+				$("#print").append("<br/> passenger name "+passenger.name);
+			}
+		})
+			
+	})
+})
+</script>
+</head>
+<body>
+<h3>welcome tpo breakmytrip.com</h3>
+<form id = "frm">
+Enter PNR No : <input type = "number" id = "pnrNo"/><br/>
+<button type  = "submit" id = "btn">submit</button>
+</form>
+
+</body>
+</html>
